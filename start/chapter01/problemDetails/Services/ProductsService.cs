@@ -25,4 +25,19 @@ public class ProductReadService : IProductsService
             })
             .ToListAsync();
     }
+
+    public async Task<ProductDTO?> GetAProductAsync(int id)
+    {
+        return await _context.Products
+            .AsNoTracking()
+            .Where(p => p.Id == id)
+            .Select(p => new ProductDTO
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                CategoryId = p.CategoryId
+            })
+            .FirstOrDefaultAsync();
+    }
 }

@@ -41,4 +41,26 @@ public class ProductsController : ControllerBase
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+    // GET: /Products/1
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ProductDTO>> GetAProduct(int id)
+    {
+        _logger.LogInformation($"Retrieving product with id {id}");
+
+        try 
+        {
+            var product = await _productsService.GetAProductAsync(id);
+
+            if (product == null)
+                return NotFound();
+
+            return Ok(product);
+        } 
+        catch (Exception ex) 
+        {
+            _logger.LogError(ex, $"An error occurred while retrieving product with id {id}");
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
 }
