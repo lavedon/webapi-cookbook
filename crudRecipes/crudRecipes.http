@@ -1,6 +1,0 @@
-@crudRecipes_HostAddress = http://localhost:5149
-
-GET {{crudRecipes_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
