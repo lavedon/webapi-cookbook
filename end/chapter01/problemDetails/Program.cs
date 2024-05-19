@@ -3,6 +3,7 @@ using cookbook.Models;
 using Microsoft.EntityFrameworkCore;
 using Bogus;
 using cookbook.Services;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,31 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddProblemDetails(options =>
+    options.CustomizeProblemDetails = (context) =>
+    {
+        var httpContext = context.HttpContext;
+        context.ProblemDetails.Extensions["traceId"] = Activity.Current?.Id ?? httpContext.TraceIdentifier;
+        context.ProblemDetails.Extensions["supportContact"] = "support@example.com";
+
+        if (context.ProblemDetails.Status == StatusCodes.Status401Unauthorized)
+        {
+            context.ProblemDetails.Title = "Unauthorized Access";
+            context.ProblemDetails.Detail = "You are not authorized to access this resource.";
+        }
+        else if (context.ProblemDetails.Status == StatusCodes.Status404NotFound)
+        {
+            context.ProblemDetails.Title = "Resource Not Found";
+            context.ProblemDetails.Detail = "The resource you are looking for was not found.";
+        }
+        else
+        {
+            context.ProblemDetails.Title = "An unexpected error occurred";
+            context.ProblemDetails.Detail = "An unexpected error occurred. Please try again later.";
+        }
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -18,6 +44,8 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDataba
 builder.Services.AddScoped<IProductsService, ProductReadService>();
 
 var app = builder.Build();
+    
+    
 
 using (var scope = app.Services.CreateScope())
 {

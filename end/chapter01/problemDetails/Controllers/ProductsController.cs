@@ -17,6 +17,15 @@ public class ProductsController : ControllerBase
         _logger = logger;
     }
 
+    [ApiController]
+    [Route("/error")]
+    public class ErrorController : ControllerBase
+    {
+        [HttpGet]
+        public IActionResult HandleError() => Problem();
+    } 
+
+
     // GET: /Products
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductDTO>))] 
@@ -42,25 +51,51 @@ public class ProductsController : ControllerBase
             }
         }
 
-    // GET: /Products/1
+    // GET: /products/{id}
     [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductDTO))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemDetails))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError, Type = typeof(ProblemDetails))]
     public async Task<ActionResult<ProductDTO>> GetAProduct(int id)
     {
         _logger.LogInformation($"Retrieving product with id {id}");
 
-        try 
+        try
         {
             var product = await _productsService.GetAProductAsync(id);
 
             if (product == null)
-                return NotFound();
+            {
+                return Problem(
+                    detail: $"Product with ID {id} was not found.",
+                    title: "Product not found",
+                    statusCode: StatusCodes.Status404NotFound,
+                    instance: HttpContext.TraceIdentifier
+                );
+            }
 
             return Ok(product);
-        } 
-        catch (Exception ex) 
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            _logger.LogError(ex, "Unauthorized access");
+            return Problem(
+                detail: ex.Message,
+                title: "Unauthorized Access",
+                statusCode: StatusCodes.Status401Unauthorized,
+                instance: HttpContext.TraceIdentifier
+            );
+        }
+        catch (Exception ex)
         {
             _logger.LogError(ex, $"An error occurred while retrieving product with id {id}");
-            return StatusCode(StatusCodes.Status500InternalServerError);
+            return Problem(
+                detail: "An unexpected error occurred while processing your request.",
+                title: "Internal Server Error",
+                statusCode: StatusCodes.Status500InternalServerError,
+                instance: HttpContext.TraceIdentifier
+            );
         }
     }
 }
