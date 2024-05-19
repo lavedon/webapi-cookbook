@@ -2,6 +2,7 @@ using cookbook.Data;
 using cookbook.Models;
 using Microsoft.EntityFrameworkCore;
 using Bogus;
+using cookbook.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("InMemoryDb"));
+
+builder.Services.AddScoped<IProductsService, ProductReadService>();
 
 var app = builder.Build();
 
