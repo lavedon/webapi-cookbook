@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using mockAPI.Models;
+using cookbook.Models;
 
-namespace mockAPI.Data;
+namespace cookbook.Data;
 
 public class AppDbContext : DbContext
 {
