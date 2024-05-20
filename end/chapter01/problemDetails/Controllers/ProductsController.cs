@@ -17,15 +17,6 @@ public class ProductsController : ControllerBase
         _logger = logger;
     }
 
-    [ApiController]
-    [Route("/error")]
-    public class ErrorController : ControllerBase
-    {
-        [HttpGet]
-        public IActionResult HandleError() => Problem();
-    } 
-
-
     // GET: /Products
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductDTO>))] 
