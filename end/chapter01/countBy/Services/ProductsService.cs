@@ -26,18 +26,16 @@ public class ProductReadService : IProductsService
             .ToListAsync();
     }
 
-    public async Task<ProductDTO?> GetAProductAsync(int id)
+    public async Task<IReadOnlyCollection<CategoryDTO>> GetCategoryInfoAsync()
     {
-        return await _context.Products
-            .AsNoTracking()
-            .Where(p => p.Id == id)
-            .Select(p => new ProductDTO
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                CategoryId = p.CategoryId
-            })
-            .FirstOrDefaultAsync();
+	var products = await _context.Products.AsNoTracking().ToListAsync();
+
+        var productsByCategory = products.CountBy(p => p.CategoryId).OrderBy(x => x.Key);
+        return productsByCategory.Select(categoryGroup => new CategoryDTO
+        {
+            CategoryId = categoryGroup.Key,
+            ProductCount = categoryGroup.Value
+        }).ToList();
     }
+
 }

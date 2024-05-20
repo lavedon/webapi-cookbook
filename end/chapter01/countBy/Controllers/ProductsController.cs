@@ -22,45 +22,49 @@ public class ProductsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductDTO>))] 
     [ProducesResponseType(StatusCodes.Status204NoContent)] 
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> GetAllProducts()
-        {
-            _logger.LogInformation("Retrieving all products");
-
-            try 
-            {
-                var products = await _productsService.GetAllProductsAsync();
-
-                if (!products.Any())
-                    return NoContent();
-
-                return Ok(products);
-            } 
-            catch (Exception ex) 
-            {
-                _logger.LogError(ex, "An error occurred while retrieving all products");
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-        }
-
-    // GET: /Products/1
-    [HttpGet("{id}")]
-    public async Task<ActionResult<ProductDTO>> GetAProduct(int id)
+    public async Task<ActionResult<IEnumerable<ProductDTO>>> GetAllProducts()
     {
-        _logger.LogInformation($"Retrieving product with id {id}");
+        _logger.LogInformation("Retrieving all products");
 
         try 
         {
-            var product = await _productsService.GetAProductAsync(id);
+            var products = await _productsService.GetAllProductsAsync();
 
-            if (product == null)
-                return NotFound();
+            if (!products.Any())
+                return NoContent();
 
-            return Ok(product);
+            return Ok(products);
         } 
         catch (Exception ex) 
         {
-            _logger.LogError(ex, $"An error occurred while retrieving product with id {id}");
+            _logger.LogError(ex, "An error occurred while retrieving all products");
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
+
+    // GET: /Products/CategoryInfo
+	[HttpGet("CategoryInfo")]
+	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<CategoryDTO>))] 
+	[ProducesResponseType(StatusCodes.Status204NoContent)] 
+	[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+	[ResponseCache(Duration = 120, Location = ResponseCacheLocation.Any, NoStore = false)] 
+	public async Task<ActionResult<IEnumerable<CategoryDTO>>> GetCategoryInfo()
+	{
+		_logger.LogInformation("Retrieving Category Info");
+
+		try 
+		{
+			var products = await _productsService.GetCategoryInfoAsync();
+
+			if (!products.Any())
+				return NoContent();
+
+			return Ok(products);
+		} 
+		catch (Exception ex) 
+		{
+			_logger.LogError(ex, "An error occurred while retrieving all products");
+			return StatusCode(StatusCodes.Status500InternalServerError);
+		}
+	}
 }
