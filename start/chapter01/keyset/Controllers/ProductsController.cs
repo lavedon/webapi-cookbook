@@ -17,8 +17,8 @@ public class ProductsController : ControllerBase
         _logger = logger;
     }
 
-    // GET: /Products
-    [HttpGet]
+    // GET: /Products/AllAtOnce
+    [HttpGet("AllAtOnce")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductDTO>))] 
     [ProducesResponseType(StatusCodes.Status204NoContent)] 
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
