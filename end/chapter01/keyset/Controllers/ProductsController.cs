@@ -42,6 +42,7 @@ public class ProductsController : ControllerBase
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
     // GET: /Products
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductDTO>))]
