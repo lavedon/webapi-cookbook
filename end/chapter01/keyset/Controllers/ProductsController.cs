@@ -42,33 +42,47 @@ public class ProductsController : ControllerBase
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-
     // GET: /Products
-	[HttpGet]
-	[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductDTO>))] 
-	[ProducesResponseType(StatusCodes.Status204NoContent)] 
-	[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-	[ResponseCache(Duration = 120, Location = ResponseCacheLocation.Any, NoStore = false)] 
-	public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts(int pageSize, int? lastProductId = null)
-
-{
-    var pagedResult = await _productsService.GetPagedProductsAsync(pageSize, lastProductId);
-
-    var paginationMetadata = new
-
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ProductDTO>))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ResponseCache(Duration = 120, Location = ResponseCacheLocation.Any, NoStore = false)]
+    public async Task<ActionResult<IEnumerable<ProductDTO>>> GetProducts(int pageSize, int? lastProductId = null)
     {
+        if (pageSize <= 0)
+        {
+            return BadRequest("pageSize must be greater than 0");
+        }
 
-        PageSize = pagedResult.PageSize,
-        HasPreviousPage = pagedResult.HasPreviousPage,
-        HasNextPage = pagedResult.HasNextPage,
+        var pagedResult = await _productsService.GetPagedProductsAsync(pageSize, lastProductId);
 
-        NextPageUrl = pagedResult.HasNextPage ? Url.Action("GetProducts", new { pageSize, lastProductId = pagedResult.Items.Last().Id }) : null,
+        var previousPageUrl = pagedResult.HasPreviousPage
+                ? Url.Action("GetProducts", new { pageSize, lastProductId = pagedResult.Items.First().Id })
+                : null;
 
-        PreviousPageUrl = pagedResult.HasPreviousPage ? Url.Action("GetProducts", new { pageSize, lastProductId = pagedResult.Items.First().Id }) : null
+            var nextPageUrl = pagedResult.HasNextPage
+                ? Url.Action("GetProducts", new { pageSize, lastProductId = pagedResult.Items.Last().Id })
+                : null;
 
-    };
-		Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(paginationMetadata));
+        var paginationMetadata = new
+        {
+            PageSize = pagedResult.PageSize,
+            HasPreviousPage = pagedResult.HasPreviousPage,
+            HasNextPage = pagedResult.HasNextPage,
+            PreviousPageUrl = previousPageUrl,
+            NextPageUrl = nextPageUrl
+        };
 
-		return Ok(pagedResult.Items);
-	}
+        var options = new JsonSerializerOptions
+        {
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        };
+
+        Response.Headers.Append("X-Pagination", JsonSerializer.Serialize(paginationMetadata, options));
+
+        return Ok(pagedResult.Items);
+    }
+
+ 
 }
