@@ -8,4 +8,6 @@ public abstract record PagedResponse<T>
 	public bool HasNextPage { get; init; }
 	public int TotalPages { get; init; }
 	public int LastPage { get; init; }
+	public Dictionary<int, decimal> AveragePricePerCategory { get; init; } = new();
+
 }

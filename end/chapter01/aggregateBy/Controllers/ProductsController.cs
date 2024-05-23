@@ -72,7 +72,8 @@ public class ProductsController : ControllerBase
             HasPreviousPage = pagedResult.HasPreviousPage,
             HasNextPage = pagedResult.HasNextPage,
             PreviousPageUrl = previousPageUrl,
-            NextPageUrl = nextPageUrl
+            NextPageUrl = nextPageUrl,
+            AveragePricePerCategory = pagedResult.AveragePricePerCategory
         };
 
         var options = new JsonSerializerOptions
