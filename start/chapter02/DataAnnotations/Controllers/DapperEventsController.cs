@@ -18,9 +18,9 @@ public class DapperEventsController : ControllerBase
         _logger = logger;
     }
 
+    [HttpGet]
     [EndpointSummary("Paged Event Registrations")]
     [EndpointDescription("This returns all the event registrations from our SQLite database, using Dapper")]
-    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IReadOnlyCollection<EventRegistrationDTO>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ResponseCache(Duration = 60, VaryByQueryKeys = new[] { "pageSize", "lastId" })] 
@@ -56,9 +56,9 @@ public class DapperEventsController : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
     [EndpointSummary("Get a event by Id")]
     [EndpointDescription("Returns a single event registration by its Id from our SQLite database, using EF Core")]
-    [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EventRegistrationDTO))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetEventRegistrationById(int id)
