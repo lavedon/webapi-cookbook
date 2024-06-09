@@ -18,6 +18,7 @@ public class EFEventsController : ControllerBase
         _logger = logger;
     }
 
+
     [EndpointSummary("Paged Event Registrations")]
     [EndpointDescription("This returns all the event registrations from our SQLite database, using EF Core")]
     [HttpGet]
@@ -55,4 +56,34 @@ public class EFEventsController : ControllerBase
             return StatusCode(500, "An error occurred while fetching event registrations.");
         }
     }
+
+    [EndpointSummary("Get a event by Id")]
+    [EndpointDescription("Returns a single event registration by its Id from our SQLite database, using EF Core")]
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EventRegistrationDTO))]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetEventRegistrationById(int id)
+    {
+        if (id <= 0)
+        {
+            return BadRequest("Id must be greater than 0");
+        }
+
+        try
+        {
+            var eventRegistration = await _service.GetEventRegistrationByIdAsync(id);
+            if (eventRegistration == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(eventRegistration);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred while fetching event registration by Id: {Id}", id);
+            return StatusCode(500, "An error occurred while fetching event registration by Id.");
+        }
+    }
+
 }

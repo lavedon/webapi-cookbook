@@ -46,4 +46,21 @@ public class DapperService : IDapperService
             PageSize = pageSize
         };
     }
+
+    public async Task<EventRegistrationDTO?> GetEventRegistrationByIdAsync(int id)
+    {
+        var eventRegistration = await _repository.GetEventRegistrationByIdAsync(id);
+        if (eventRegistration == null) return null;
+
+        return new EventRegistrationDTO
+        {
+            Id = eventRegistration.Id,
+            FullName = eventRegistration.FullName,
+            Email = eventRegistration.Email,
+            EventName = eventRegistration.EventName,
+            EventDate = eventRegistration.EventDate,
+            ConfirmEmail = eventRegistration.Email,
+            DaysAttending = eventRegistration.DaysAttending,
+        };
+    }
 }
