@@ -11,12 +11,12 @@ public class AllowedValuesAttribute : ValidationAttribute
         _allowedValues = allowedValues?.ToList() ?? new List<string>();
     }
 
-    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+    protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        if (value == null || !_allowedValues.Contains(value.ToString()))
+        if (value == null || !_allowedValues.Contains(value.ToString()!))
         {
             return new ValidationResult($"The field {validationContext.DisplayName} must be one of the following values: {string.Join(", ", _allowedValues)}.");
         }
-        return ValidationResult.Success;
+        return ValidationResult.Success ?? null;
     }
 }
