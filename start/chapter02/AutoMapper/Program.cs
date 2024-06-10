@@ -86,10 +86,10 @@ using (var connection = new SqliteConnection(connectionStringBuilder.ConnectionS
     if (count == 0)
     {
         var additionalContactFaker = new Faker<AdditionalContactInfo>()
-            .RuleFor(a => a.PhoneNumber, f => f.Phone.PhoneNumber())
-            .RuleFor(a => a.Address, f => f.Address.FullAddress());
+            .RuleFor(ac => ac.PhoneNumber, f => f.Phone.PhoneNumber())
+            .RuleFor(ac => ac.Address, f => f.Address.FullAddress());
 
-        var faker = new Faker<EventRegistration>()
+        var eventRegistrationFaker = new Faker<EventRegistration>()
             .RuleFor(e => e.GUID, f => Guid.NewGuid())
             .RuleFor(e => e.FullName, f => f.Name.FullName())
             .RuleFor(e => e.Email, f => f.Internet.Email())
@@ -99,7 +99,7 @@ using (var connection = new SqliteConnection(connectionStringBuilder.ConnectionS
             .RuleFor(e => e.Notes, f => f.Lorem.Sentence())
             .RuleFor(e => e.AdditionalContact, f => additionalContactFaker.Generate());
 
-        var registrations = faker.Generate(10000);
+        var registrations = eventRegistrationFaker.Generate(10000);
 
         var insertCommand = connection.CreateCommand();
         insertCommand.CommandText = @"
