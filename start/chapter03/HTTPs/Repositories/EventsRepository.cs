@@ -4,11 +4,11 @@ using events.Models;
 
 namespace events.Repositories;
 
-public class EFCoreRepository : IEFCoreRepository
+public class EventsRepository: IEventsRepository
 {
     private readonly AppDbContext _context;
 
-    public EFCoreRepository(AppDbContext context)
+    public EventsRepository(AppDbContext context)
     {
         _context = context;
     }

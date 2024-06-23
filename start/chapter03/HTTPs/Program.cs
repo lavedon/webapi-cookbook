@@ -6,7 +6,6 @@ using events.Models;
 using events.Data;
 using events.Services;
 using events.Repositories;
-using Dapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +22,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApi("chapter2");
+builder.Services.AddOpenApi("chapter3");
 
 // Register the AppDbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -32,13 +31,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Register EF Core services and repositories
 builder.Services.AddScoped<IEFCoreRepository, EFCoreRepository>();
 builder.Services.AddScoped<IEFCoreService, EFCoreService>();
-
-// Register Dapper services and repositories
-var connectionString = "Data Source=./Data/SqliteDB.db";
-builder.Services.AddSingleton<IDapperRepository>(new DapperRepository(connectionString));
-builder.Services.AddScoped<IDapperService, DapperService>();
-
-SqlMapper.AddTypeHandler(new GuidTypeHandler());
 
 var app = builder.Build();
 

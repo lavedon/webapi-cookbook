@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace events.Services;
 
-public class EFCoreService : IEFCoreService
+public class EventsService : IEventService
 {
-    private readonly IEFCoreRepository _repository;
+    private readonly IEventsRepository _repository;
 
-    public EFCoreService(IEFCoreRepository repository)
+    public EventsService(IEventsRepository repository)
     {
         _repository = repository;
     }

@@ -5,25 +5,26 @@ using System.Text.Json;
 
 namespace events.Controllers;
 
-[Route("api/dapper/[controller]")]
+[Route("api/[controller]")]
 [ApiController]
-public class DapperEventsController : ControllerBase
+public class EventsController : ControllerBase
 {
-    private readonly IDapperService _service;
-    private readonly ILogger<DapperEventsController> _logger;
+    private readonly IEventsService _service;
+    private readonly ILogger<EventsController> _logger;
 
-    public DapperEventsController(IDapperService service, ILogger<DapperEventsController> logger)
+    public EventsController(IEventsService service, ILogger<EventsController> logger)
     {
         _service = service;
         _logger = logger;
     }
 
+
     [HttpGet]
     [EndpointSummary("Paged Event Registrations")]
-    [EndpointDescription("This returns all the event registrations from our SQLite database, using Dapper")]
+    [EndpointDescription("This returns all the event registrations from our SQLite database, using EF Core")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IReadOnlyCollection<EventRegistrationDTO>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    [ResponseCache(Duration = 60, VaryByQueryKeys = new[] { "pageSize", "lastId" })] 
+    [ResponseCache(Duration = 60, VaryByQueryKeys = new[] { "pageSize", "lastId" })]
     public async Task<IActionResult> GetEventRegistrations([FromQuery] int pageSize = 10, [FromQuery] int lastId = 0)
     {
         try
