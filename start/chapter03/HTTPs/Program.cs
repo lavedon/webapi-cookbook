@@ -24,13 +24,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi("chapter3");
 
-// Register the AppDbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=./Data/SqliteDB.db"));
 
-// Register EF Core services and repositories
-builder.Services.AddScoped<IEFCoreRepository, EFCoreRepository>();
-builder.Services.AddScoped<IEFCoreService, EFCoreService>();
+builder.Services.AddScoped<IEventsRepository, EventsRepository>();
+builder.Services.AddScoped<IEventsService, EventsService>();
 
 var app = builder.Build();
 
