@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace events.Services;
 
-public class EventsService : IEventService
+public class EventsService : IEventsService
 {
     private readonly IEventsRepository _repository;
 
