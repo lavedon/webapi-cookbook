@@ -6,6 +6,8 @@ using events.Models;
 using events.Data;
 using events.Services;
 using events.Repositories;
+using Microsoft.AspNetCore.HttpOverrides;
+using Chapter03.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,28 +31,24 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IEventsRepository, EventsRepository>();
 builder.Services.AddScoped<IEventsService, EventsService>();
-if (builder.Environment.IsDevelopment()) {
-    builder.Services.AddHttpsRedirection(options => 
-    {
-        options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
-        options.HttpsPort = 5218;
-    });
-} else {
-    builder.Services.AddHttpsRedirection(options => 
-    { 
-        options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-        options.HttpsPort = 5218;
-    });
-}
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 var app = builder.Build();
+
+app.UseForwardedHeaders();
+app.UseMiddleware<HttpOnlyMiddleware>();
 
 app.UseResponseCaching();
 app.MapOpenApi();
 
 app.UseCors();
 app.UseAuthorization();
-app.UseHttpsRedirection();
 
 app.MapControllers();
 app.MapScalarApiReference();

@@ -35,9 +35,9 @@ var app = builder.Build();
 app.UseResponseCaching();
 app.MapOpenApi();
 
+app.UseCors();
 app.UseAuthorization();
 
-app.UseCors();
 
 app.MapControllers();
 app.MapScalarApiReference();
