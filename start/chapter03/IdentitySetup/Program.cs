@@ -8,7 +8,6 @@ using events.Data;
 using events.Services;
 using events.Repositories;
 using Chapter03.Middleware;
-using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
