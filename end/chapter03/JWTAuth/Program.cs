@@ -41,7 +41,6 @@ string keyPath = Path.Combine(builder.Environment.ContentRootPath, "jwt-key.txt"
 string jwtKey = File.ReadAllText(keyPath).Trim();
 Console.WriteLine($"jwtKey is {jwtKey}");
 
-// Create and populate JwtSettings
 var jwtSettings = new JwtSettings
 {
     Key = jwtKey,
@@ -50,7 +49,6 @@ var jwtSettings = new JwtSettings
     ExpirationInMinutes = int.Parse(builder.Configuration["Jwt:ExpirationInMinutes"] ?? "60")
 };
 
-// Validate JwtSettings
 if (string.IsNullOrEmpty(jwtSettings.Key) || 
     string.IsNullOrEmpty(jwtSettings.Issuer) || 
     string.IsNullOrEmpty(jwtSettings.Audience))
@@ -60,10 +58,8 @@ if (string.IsNullOrEmpty(jwtSettings.Key) ||
 
 Console.WriteLine($"JwtSettings created. Key length: {jwtSettings.Key.Length}, Issuer: {jwtSettings.Issuer}, Audience: {jwtSettings.Audience}");
 
-// Register JwtSettings as a singleton
 builder.Services.AddSingleton(jwtSettings);
 
-// Optional: Configure JwtSettings for IOptions pattern (if needed elsewhere)
 builder.Services.Configure<JwtSettings>(options =>
 {
     options.Key = jwtSettings.Key;

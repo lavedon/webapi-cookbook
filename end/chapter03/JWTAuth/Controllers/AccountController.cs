@@ -22,6 +22,7 @@ namespace events.Controllers
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings.Value;
+
             Console.WriteLine($"AccountController Constructor: JwtSettings Key length: {_jwtSettings.Key?.Length ?? 0}");
             Console.WriteLine($"AccountController Constructor: Issuer: {_jwtSettings.Issuer}");
             Console.WriteLine($"AccountController Constructor: Audience: {_jwtSettings.Audience}");
