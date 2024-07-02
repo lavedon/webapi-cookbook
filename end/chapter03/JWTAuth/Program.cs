@@ -60,6 +60,7 @@ Console.WriteLine($"JwtSettings created. Key length: {jwtSettings.Key.Length}, I
 
 builder.Services.AddSingleton(jwtSettings);
 
+// Optional: Configure JwtSettings for IOptions pattern (if needed elsewhere)
 builder.Services.Configure<JwtSettings>(options =>
 {
     options.Key = jwtSettings.Key;

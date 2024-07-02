@@ -105,6 +105,7 @@ public class EventsController : ControllerBase
 
     }
 
+    [Authorize]
     [HttpGet("authtest")]
     public IActionResult AuthTest()
     {
