@@ -74,7 +74,7 @@ namespace events.Controllers
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var token = GenerateJwtToken(user);
-                return Ok(new { token = token });
+                return Ok(token);
             }
             return Unauthorized(new { message = "Invalid login attempt" });
         }
