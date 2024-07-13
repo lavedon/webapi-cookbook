@@ -73,7 +73,7 @@ public class Startup
             endpoints.MapOpenApi();
             endpoints.MapScalarApiReference();
 
-            endpoints.MapHealthChecks("/health", new HealthCheckOptions
+            endpoints.MapHealthChecks("/api/health", new HealthCheckOptions
             {
             ResultStatusCodes =
             {
