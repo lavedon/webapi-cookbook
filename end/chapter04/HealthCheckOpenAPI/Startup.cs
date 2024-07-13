@@ -43,7 +43,7 @@ public class Startup
                 Description = "API for demonstrating health checks"
             };
 
-            document.Paths["/health"] = new OpenApiPathItem
+            document.Paths["/api/health"] = new OpenApiPathItem
             {
                 Operations = new Dictionary<OperationType, OpenApiOperation>
                 {
@@ -107,7 +107,7 @@ public class Startup
             endpoints.MapOpenApi();
             endpoints.MapScalarApiReference();
 
-            endpoints.MapHealthChecks("/health", new HealthCheckOptions
+            endpoints.MapHealthChecks("/api/health", new HealthCheckOptions
             {
             ResultStatusCodes =
             {
