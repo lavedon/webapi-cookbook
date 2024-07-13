@@ -55,12 +55,6 @@ public class Startup
                     return HealthCheckResult.Unhealthy();
                 }
             }, tags: new[] { "database" });
-
-        services.Configure<HealthCheckPublisherOptions>(options =>
-        {
-            options.Delay = TimeSpan.FromSeconds(2);
-            options.Period = TimeSpan.FromSeconds(30);
-        });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
@@ -103,11 +97,11 @@ public class Startup
                     totalDuration = report.TotalDuration
                 };
                 await context.Response.WriteAsJsonAsync(response);
+
                 }
             });
         });
 
         DatabaseSeeder.Initialize(serviceProvider);
-
     }
 }
