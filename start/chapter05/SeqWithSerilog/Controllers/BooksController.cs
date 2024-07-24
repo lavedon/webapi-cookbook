@@ -48,7 +48,7 @@ public class BooksController : ControllerBase
 
             return Ok(pagedResult.Items);
         }
-        catch (Exception ex)
+        catch (Exception )
         {
             return StatusCode(500, "An error occurred while fetching books.");
         }
@@ -76,7 +76,7 @@ public class BooksController : ControllerBase
 
             return Ok(books);
         }
-        catch (Exception ex)
+        catch (Exception )
         {
             return StatusCode(500, "An error occurred while fetching a book by Id.");
         }
@@ -98,7 +98,7 @@ public class BooksController : ControllerBase
             var createdBook = await _service.CreateBookAsync(bookDto);
             return CreatedAtAction(nameof(GetBookById), new { id = createdBook.Id }, createdBook);
         }
-        catch (Exception ex)
+        catch (Exception )
         {
             return StatusCode(500, "An error occurred while creating a new book.");
         }
