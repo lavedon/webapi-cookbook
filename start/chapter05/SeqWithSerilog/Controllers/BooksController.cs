@@ -50,7 +50,7 @@ public class BooksController : ControllerBase
         }
         catch (Exception ex)
         {
-            return StatusCode(500, "An error occurred while fetching event registrations.");
+            return StatusCode(500, "An error occurred while fetching books.");
         }
     }
 
@@ -68,18 +68,17 @@ public class BooksController : ControllerBase
 
         try
         {
-            var eventRegistration = await _service.GetBookByIdAsync(id);
-            if (eventRegistration == null)
+            var books = await _service.GetBookByIdAsync(id);
+            if (books == null)
             {
                 return NotFound();
             }
 
-            return Ok(eventRegistration);
+            return Ok(books);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while fetching event registration by Id: {Id}", id);
-            return StatusCode(500, "An error occurred while fetching event registration by Id.");
+            return StatusCode(500, "An error occurred while fetching a book by Id.");
         }
     }
 
@@ -101,7 +100,6 @@ public class BooksController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while creating a new book.");
             return StatusCode(500, "An error occurred while creating a new book.");
         }
     }
