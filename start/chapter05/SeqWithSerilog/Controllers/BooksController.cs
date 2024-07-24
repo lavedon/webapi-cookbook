@@ -10,12 +10,10 @@ namespace books.Controllers;
 public class BooksController : ControllerBase
 {
     private readonly IBooksService _service;
-    private readonly ILogger<BooksController> _logger;
 
     public BooksController(IBooksService service, ILogger<BooksController> logger)
     {
         _service = service;
-        _logger = logger;
     }
 
 
@@ -30,7 +28,6 @@ public class BooksController : ControllerBase
     {
         try
         {
-            _logger.LogInformation("Fetching event registrations with pageSize: {PageSize}, lastId: {LastId}", pageSize, lastId);
             var pagedResult = await _service.GetBooksAsync(pageSize, lastId, Url);
 
             var paginationMetadata = new
@@ -53,7 +50,6 @@ public class BooksController : ControllerBase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while fetching event registrations.");
             return StatusCode(500, "An error occurred while fetching event registrations.");
         }
     }

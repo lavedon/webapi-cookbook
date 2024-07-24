@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Scalar.AspNetCore;
 using books.Data;
 using books.Services;
 using books.Repositories;
