@@ -11,7 +11,7 @@ public class BooksController : ControllerBase
 {
     private readonly IBooksService _service;
 
-    public BooksController(IBooksService service, ILogger<BooksController> logger)
+    public BooksController(IBooksService service)
     {
         _service = service;
     }
