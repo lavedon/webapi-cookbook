@@ -2630,11 +2630,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\my-coding-projects\\chapter06\\opinionPoll\\opinionPoll.csproj",
+      "projectUniqueName": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\opinionPoll.csproj",
       "projectName": "opinionPoll",
-      "projectPath": "C:\\my-coding-projects\\chapter06\\opinionPoll\\opinionPoll.csproj",
+      "projectPath": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\opinionPoll.csproj",
       "packagesPath": "C:\\Users\\laved\\.nuget\\packages\\",
-      "outputPath": "C:\\my-coding-projects\\chapter06\\opinionPoll\\obj\\",
+      "outputPath": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\laved\\AppData\\Roaming\\NuGet\\NuGet.Config"

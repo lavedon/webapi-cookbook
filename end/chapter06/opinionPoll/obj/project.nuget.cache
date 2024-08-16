@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "deg4WuMEbfc=",
+  "dgSpecHash": "eO8A7FzYCe8=",
   "success": true,
-  "projectFilePath": "C:\\my-coding-projects\\chapter06\\opinionPoll\\opinionPoll.csproj",
+  "projectFilePath": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\opinionPoll.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\laved\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\laved\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.0-preview.6.24328.4\\microsoft.aspnetcore.openapi.9.0.0-preview.6.24328.4.nupkg.sha512",

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3aT+XqbAKlyKlwwLCj04vAVNZNDS4LLiwZC6CNYMZbo=",
+  "Hash": "bVpyXjynKDpuVAbTBAC3foMZgeB8Im7LKVI/WYkYhxA=",
   "Source": "opinionPoll",
   "BasePath": "_content/opinionPoll",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "opinionPoll\\wwwroot",
       "Source": "opinionPoll",
-      "ContentRoot": "C:\\my-coding-projects\\chapter06\\opinionPoll\\wwwroot\\",
+      "ContentRoot": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\wwwroot\\",
       "BasePath": "_content/opinionPoll",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\my-coding-projects\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
+      "Identity": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
       "SourceId": "opinionPoll",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\my-coding-projects\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\",
+      "ContentRoot": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/opinionPoll",
       "RelativePath": "index#[.{fingerprint=lsa6604rhg}]?.html.gz",
       "AssetKind": "All",
@@ -28,20 +28,20 @@
       "AssetRole": "Alternative",
       "AssetMergeBehavior": "",
       "AssetMergeSource": "",
-      "RelatedAsset": "C:\\my-coding-projects\\chapter06\\opinionPoll\\wwwroot\\index.html",
+      "RelatedAsset": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\wwwroot\\index.html",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
       "Fingerprint": "4nd9x1r8nb",
       "Integrity": "sD3VxNwa4zyEnlGXNVCx50hH8TQOrkD9R/LgUXJ0u+Q=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\my-coding-projects\\chapter06\\opinionPoll\\wwwroot\\index.html"
+      "OriginalItemSpec": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\wwwroot\\index.html"
     },
     {
-      "Identity": "C:\\my-coding-projects\\chapter06\\opinionPoll\\wwwroot\\index.html",
+      "Identity": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\wwwroot\\index.html",
       "SourceId": "opinionPoll",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\my-coding-projects\\chapter06\\opinionPoll\\wwwroot\\",
+      "ContentRoot": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\wwwroot\\",
       "BasePath": "_content/opinionPoll",
       "RelativePath": "index#[.{fingerprint}]?.html",
       "AssetKind": "All",
@@ -62,7 +62,7 @@
   "Endpoints": [
     {
       "Route": "index.html",
-      "AssetFile": "C:\\my-coding-projects\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
+      "AssetFile": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
@@ -117,7 +117,7 @@
     },
     {
       "Route": "index.html",
-      "AssetFile": "C:\\my-coding-projects\\chapter06\\opinionPoll\\wwwroot\\index.html",
+      "AssetFile": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\wwwroot\\index.html",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -154,7 +154,7 @@
     },
     {
       "Route": "index.html.gz",
-      "AssetFile": "C:\\my-coding-projects\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
+      "AssetFile": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -199,7 +199,7 @@
     },
     {
       "Route": "index.lsa6604rhg.html",
-      "AssetFile": "C:\\my-coding-projects\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
+      "AssetFile": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
@@ -262,7 +262,7 @@
     },
     {
       "Route": "index.lsa6604rhg.html",
-      "AssetFile": "C:\\my-coding-projects\\chapter06\\opinionPoll\\wwwroot\\index.html",
+      "AssetFile": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\wwwroot\\index.html",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -307,7 +307,7 @@
     },
     {
       "Route": "index.lsa6604rhg.html.gz",
-      "AssetFile": "C:\\my-coding-projects\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
+      "AssetFile": "C:\\my-coding-projects\\webapi-cookbook\\end\\chapter06\\opinionPoll\\obj\\Debug\\net9.0\\compressed\\4ot1f0yerr-lsa6604rhg.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
