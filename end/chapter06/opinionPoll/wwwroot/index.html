@@ -42,7 +42,7 @@
         function startConnection() {
             connection.start({ waitForPageLoad: false })
                 .then(() => {
-                    addMessage("Connected to the voting hub. You can now cast your vote!");
+                    addMessage("Connected to the voting hub. Vote to see the latest results.");
                 })
                 .catch(err => {
                     addMessage("Error connecting to hub: " + err);
