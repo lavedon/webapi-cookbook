@@ -1,12 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
-builder.Services.AddDbContext<VoteDbContext>(options =>
-        options.UseSqlite("Data Source=./Data/Data.db")
-);
 
 builder.Services.AddSignalR();
 
@@ -18,9 +12,6 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapHub<VotingHub>("/votingHub");
 app.MapControllers();
-
-app.MapFallbackToFile("index.html");
 
 app.Run();
