@@ -1,0 +1,16 @@
+﻿<Project>
+  <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/opinionPoll/index.html">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-270z82Dvs0HWIHifFgdVQ6LC/1SErbBECvriHmULqcE="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"2460"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022270z82Dvs0HWIHifFgdVQ6LC/1SErbBECvriHmULqcE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 16 Aug 2024 02:54:32 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/opinionPoll/index.lsa6604rhg.html">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\index.html'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"lsa6604rhg"},{"Name":"integrity","Value":"sha256-270z82Dvs0HWIHifFgdVQ6LC/1SErbBECvriHmULqcE="},{"Name":"label","Value":"_content/opinionPoll/index.html"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2460"},{"Name":"Content-Type","Value":"text/html"},{"Name":"ETag","Value":"\u0022270z82Dvs0HWIHifFgdVQ6LC/1SErbBECvriHmULqcE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 16 Aug 2024 02:54:32 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+  </ItemGroup>
+</Project>
