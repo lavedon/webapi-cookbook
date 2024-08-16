@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("commandLineSignalR")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bbd0a97d44112b47188b713d9ab4c9ed28017cf4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba54b0c0dc76080738e03cdf8e0ea9ae50e994bc")]
 [assembly: System.Reflection.AssemblyProductAttribute("commandLineSignalR")]
 [assembly: System.Reflection.AssemblyTitleAttribute("commandLineSignalR")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
