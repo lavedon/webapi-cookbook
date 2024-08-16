@@ -4,6 +4,8 @@ using System.CommandLine.Invocation;
 
 class Program
 {
+    private static string CurrentMethodName = "BroadcastMessage";
+
     static async Task<int> Main(string[] args)
     {
         var urlOption = new Option<string>(
@@ -35,17 +37,17 @@ class Program
         rootCommand.SetHandler(async (InvocationContext context) =>
         {
             var url = context.ParseResult.GetValueForOption(urlOption);
-            var method = context.ParseResult.GetValueForOption(methodOption) ?? "BroadcastMessage";
+            CurrentMethodName = context.ParseResult.GetValueForOption(methodOption) ?? "BroadcastMessage";
             var message = context.ParseResult.GetValueForOption(messageOption);
             var interactive = context.ParseResult.GetValueForOption(interactiveOption);
 
-            if (interactive)
+            if (args.Length == 0 || interactive)
             {
                 await RunInteractiveMode();
             }
             else if (url != null && message != null)
             {
-                await SendMessageFromCommandLine(url, method, message);
+                await SendMessageFromCommandLine(url, CurrentMethodName, message);
             }
             else
             {
@@ -76,6 +78,12 @@ class Program
             {
                 Console.WriteLine("\nPlease specify the action:");
                 Console.WriteLine("0 - Send a message");
+
+                if (!string.IsNullOrEmpty(CurrentMethodName))
+                {
+                    Console.WriteLine($"1 - Change MethodName (Current: {CurrentMethodName})");
+                }
+
                 Console.WriteLine("exit - Exit the program");
 
                 var action = Console.ReadLine();
@@ -84,6 +92,12 @@ class Program
                 {
                     case "0":
                         await SendMessage(hubConnection);
+                        break;
+                    case "1":
+                        if (!string.IsNullOrEmpty(CurrentMethodName))
+                        {
+                            ChangeMethodName();
+                        }
                         break;
                     case "exit":
                         return;
@@ -99,15 +113,19 @@ class Program
         }
     }
 
+    static void ChangeMethodName()
+    {
+        Console.WriteLine("Enter the new hub method name:");
+        CurrentMethodName = Console.ReadLine();
+        Console.WriteLine($"Method name changed to: {CurrentMethodName}");
+    }
+
     static async Task SendMessage(HubConnection hubConnection)
     {
-        Console.WriteLine("Enter the hub method name:");
-        var methodName = Console.ReadLine();
-
         Console.WriteLine("Please specify the message:");
         var message = Console.ReadLine();
 
-        await hubConnection.SendAsync(methodName!, message);
+        await hubConnection.SendAsync(CurrentMethodName, message);
         Console.WriteLine("Message sent.");
     }
 

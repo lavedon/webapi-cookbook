@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading.Tasks;
 
 public class VotingHub : Hub
 {

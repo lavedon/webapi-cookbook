@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SignalRPowerShellTest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9757abc28ef5bbd80f3a1fa8d6c300eba912f3e3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bbd0a97d44112b47188b713d9ab4c9ed28017cf4")]
 [assembly: System.Reflection.AssemblyProductAttribute("SignalRPowerShellTest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SignalRPowerShellTest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
