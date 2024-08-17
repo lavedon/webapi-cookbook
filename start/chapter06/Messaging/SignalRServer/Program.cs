@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SignalRServer.Data;
 using System.Text;
+using System.Security.Claims;
+using SignalRServer.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +38,9 @@ builder.Services.AddAuthentication(options =>
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtSettings["Issuer"],
             ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? ""))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"] ?? "")),
+            NameClaimType = ClaimTypes.Name,
+            RoleClaimType = ClaimTypes.Role
         };
 
         // Configure the JWT Bearer Token for SignalR
@@ -46,7 +50,7 @@ builder.Services.AddAuthentication(options =>
             {
                 var accessToken = context.Request.Query["access_token"];
                 var path = context.HttpContext.Request.Path;
-                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/votingHub"))
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/messagingHub"))
                 {
                     context.Token = accessToken;
                 }
@@ -55,7 +59,18 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
-builder.Services.AddSignalR();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+});
+
+builder.Services.AddSingleton<IUserConnectionManager, UserConnectionManager>();
+builder.Services.AddSingleton<ICustomGroupManager, CustomGroupManager>();
+
+builder.Services.AddSignalR(hubOptions => 
+{
+    hubOptions.EnableDetailedErrors = true;
+});
 
 
 var app = builder.Build();
@@ -92,10 +107,12 @@ using (var scope = app.Services.CreateScope())
 
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapHub<VotingHub>("/votingHub");
+
 app.MapControllers();
-app.UseStaticFiles();
+app.MapHub<MessagingHub>("/messagingHub");
 
 app.Run();

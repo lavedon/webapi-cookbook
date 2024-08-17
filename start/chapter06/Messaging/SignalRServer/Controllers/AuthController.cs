@@ -47,45 +47,48 @@ namespace SignalRServer.Controllers
             return BadRequest(result.Errors);
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO model)
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginDTO model)
+    {
+        var user = await _userManager.FindByNameAsync(model.Username);
+        if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, isPersistent: false, lockoutOnFailure: false);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var token = await GenerateJwtToken(user, userRoles);
+            
+            return Ok(new { token, user.UserName, Roles = userRoles });
+        }
+        return Unauthorized("Invalid username or password");
+    }
 
-            if (result.Succeeded)
-            {
-                var user = await _userManager.FindByNameAsync(model.Username);
+    private async Task<string> GenerateJwtToken(IdentityUser user, IList<string> roles)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(ClaimTypes.NameIdentifier, user.Id)
+        };
 
-                if (user == null) {
-                    return BadRequest("user not found");
-                }
-                    var token = GenerateJwtToken(user);
-                
-                return Ok(new { token, user.UserName });
-            }
-
-            return Unauthorized("Invalid username or password");
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
         }
 
-        private string GenerateJwtToken(IdentityUser user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName!)
-            };
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["Jwt:ExpireDays"]));
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var token = new JwtSecurityToken(
+            _configuration["Jwt:Issuer"],
+            _configuration["Jwt:Audience"],
+            claims,
+            expires: expires,
+            signingCredentials: creds
+        );
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: creds);
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
     }
 }
