@@ -8,6 +8,8 @@ using NSubstitute;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
+namespace Tests.Controllers;
+
 [Collection("BooksController Tests")]
 public class BooksControllerTests
 {
