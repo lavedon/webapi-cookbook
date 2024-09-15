@@ -162,13 +162,29 @@
               "target": "Package",
               "version": "[5.0.0-preview0011, )"
             },
+            "AutoFixture.AutoNSubstitute": {
+              "target": "Package",
+              "version": "[4.18.1, )"
+            },
             "AutoFixture.Xunit2": {
               "target": "Package",
               "version": "[5.0.0--preview0011, )"
             },
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[6.12.1, )"
+            },
+            "FluentAssertions.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[4.2.0, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.11.1, )"
+            },
+            "NSubstitute": {
+              "target": "Package",
+              "version": "[5.1.0, )"
             },
             "coverlet.collector": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
